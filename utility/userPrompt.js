@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const DbQuerry = require("./lib/DbQuerry");
+const querryHandler = require("./dbQuerry");
 
 // class UserPrompt {
 //     constructor (){
@@ -28,6 +28,7 @@ const DbQuerry = require("./lib/DbQuerry");
 //         this.q8 = `Quit`;
 //     }
 
+    // Function to display main prompts to the user
     function displayMainPrompts(){
         inquirer.prompt([
         {
@@ -45,45 +46,49 @@ const DbQuerry = require("./lib/DbQuerry");
                 'Exit'],
         }]).then((data) => {
                 if(data.taskList!='Exit'){
-                    displaySecondaryPrompts(data.taskList);
-        }}).catch((e) =>
-                console.error(e)
-        );
+                    displaySecondaryPrompts(data.taskList);          
+                } else{
+                    console.log("Exit Employee Tracker!")
+                    process.exit();
+                }
+        }).catch((e) =>
+                    console.error(e)
+            );
     }
 
-    displaySecondaryPrompts(task){
-        if(task===this.q1){
-            console.log(`View all employees`);
-            const dbObj = new DbQuerry();
-            dbObj.showAllEmployees();
-            this.displayMainPrompts();         
-        }
+    // displaySecondaryPrompts(task){
+    //     if(task===this.q1){
+    //         console.log(`View all employees`);
+    //         const dbObj = new DbQuerry();
+    //         dbObj.showAllEmployees();
+    //         this.displayMainPrompts();         
+    //     }
 
-        else if(task===this.q2){
-            this.addEmployeePrompts();
-        }
+    //     else if(task===this.q2){
+    //         this.addEmployeePrompts();
+    //     }
 
-        else if(task===this.q3){
-            this.updateEmployeeRole();
-        }
+    //     else if(task===this.q3){
+    //         this.updateEmployeeRole();
+    //     }
 
-        else if(task===this.q5){
-            this.addNewRole();
-        }
+    //     else if(task===this.q5){
+    //         this.addNewRole();
+    //     }
 
-        else if(task===this.q7){
-            this.addNewDepartment();
-        }
+    //     else if(task===this.q7){
+    //         this.addNewDepartment();
+    //     }
 
-        else if(task===this.q7){
-            this.addNewDepartment();
-        }
+    //     else if(task===this.q7){
+    //         this.addNewDepartment();
+    //     }
 
-        else{
-            console.log(`These are the other tasks`);
-        }
+    //     else{
+    //         console.log(`These are the other tasks`);
+    //     }
         
-    }
+    // }
 
     // async addEmployeePrompts(){
     //     const data = await inquirer.prompt([
@@ -145,4 +150,4 @@ const DbQuerry = require("./lib/DbQuerry");
 
 // }
 
-module.exports = UserPrompt;
+module.exports = userPrompt;
