@@ -57,9 +57,13 @@ async function displaySecondaryPrompts(selection){
 
         case 'View all Departments':
         
+            var data = querryHandler.viewAllDepartments();
+            console.log(data);
+            displayMainPrompts();
             break;
 
         case 'Add Employee':
+            addEmployeePrompts();
         
             break;
 
@@ -84,36 +88,17 @@ async function displaySecondaryPrompts(selection){
             break;
     }
 
-    //     if(task===this.q1){
-    //         console.log(`View all employees`);
-    //         const dbObj = new DbQuerry();
-    //         dbObj.showAllEmployees();
-    //         this.displayMainPrompts();         
-    //     }
+    async function addEmployeePrompts(){
+        const departments = querryHandler.viewAllDepartments();
+        console.log(departments);
+        const data = await inquirer.prompt([
+        { type: "input", name: "firstName", message: `What is the employee's first name?`},
+        { type: "input", name: "lastName", message: `What is the employee's last name?` },
+        { type: "list", name: "empRole", message: `What is the employee's role?`, choices:['a','b']},
+        { type: "input", name: "empMgr", message: `Who is employee's manager?`}])
+    };
 
-    //     else if(task===this.q2){
-    //         this.addEmployeePrompts();
-    //     }
-
-    //     else if(task===this.q3){
-    //         this.updateEmployeeRole();
-    //     }
-
-    //     else if(task===this.q5){
-    //         this.addNewRole();
-    //     }
-
-    //     else if(task===this.q7){
-    //         this.addNewDepartment();
-    //     }
-
-    //     else if(task===this.q7){
-    //         this.addNewDepartment();
-    //     }
-
-    //     else{
-    //         console.log(`These are the other tasks`);
-    //     }
+    
         
 }
 
