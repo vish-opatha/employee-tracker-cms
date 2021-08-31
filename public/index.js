@@ -1,4 +1,4 @@
-const UserPrompt = require("../lib/UserPrompt");
+const UserPrompt = require("../UserPrompt");
 
 const userPrompt = new UserPrompt();
 console.log(userPrompt.q1);
