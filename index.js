@@ -6,6 +6,7 @@ const mainChoices = [ 'View all Employees', 'View all Roles', 'View all Departme
                     'Update Employee Role', 'Add Role', 'Add Department', 'Exit'];
 const db = require('./db/connection');
 
+
 // Display main user prompts to the user
 async function displayMainPrompts() {
     const data = await inquirer.prompt([
@@ -16,14 +17,14 @@ async function displayMainPrompts() {
         choices: mainChoices,
     }]);
     
-    if(data.taskList === `Exit`) {
-        console.log(`Exiting the application!`);
-        process.exit();
-    }
+    // if(data.taskList === `Exit`) {
+    //     console.log(`Exiting the application!`);
+    //     process.exit();
+    // }
 
-    else {
+    // else {
         displaySecondaryPrompts(data.taskList);
-    }
+    // }
 };
 
 // Display secondary prompts to the user
@@ -53,35 +54,71 @@ function displaySecondaryPrompts(selection){
             
             break;
 
-        case 'View all Employees':
-            
-            break;
 
         case 'Add Role':
             
             break;
 
         case 'Add Department':
+            addNewDepartment();
             
         
             break;
 
+        case 'Exit':
+            console.log(`Exiting the application!`);
+            process.exit();
+        
+    
+            break;
     
         default:
+            console.log(`Exiting the application!`);
+            process.exit();
             break;
     }
 }
 
+async function addNewDepartment(){
+    const data = await inquirer.prompt
+    ([{ type: "input", name: "departmentName", message: `What is the name of the department?`}]);
 
-async function addEmployeePrompts(){
-    const departments = viewAllDepartments();
-    console.log(departments);
-    const data = await inquirer.prompt([
-    { type: "input", name: "firstName", message: `What is the employee's first name?`},
-    { type: "input", name: "lastName", message: `What is the employee's last name?` },
-    { type: "list", name: "empRole", message: `What is the employee's role?`, choices:['a','b']},
-    { type: "input", name: "empMgr", message: `Who is employee's manager?`}])
-}; 
+    const sql = `INSERT INTO department (department_name) VALUES (?)`;
+
+    const param = data.departmentName;
+
+    db.query(sql, param, (err, result) => {
+        if (err) {
+            console.log(err);
+          
+          
+        }
+
+        console.log("New department is created!");
+        displayMainPrompts();
+    
+    
+    });
+       
+
+}
+
+async function addNewRole(){
+    
+
+
+}
+
+
+// async function addEmployeePrompts(){
+//     const departments = viewAllDepartments();
+//     console.log(departments);
+//     const data = await inquirer.prompt([
+//     { type: "input", name: "firstName", message: `What is the employee's first name?`},
+//     { type: "input", name: "lastName", message: `What is the employee's last name?` },
+//     { type: "list", name: "empRole", message: `What is the employee's role?`, choices:['a','b']},
+//     { type: "input", name: "empMgr", message: `Who is employee's manager?`}])
+// }; 
 
 function showAllEmployees(){
     console.log("Show employees");
@@ -135,9 +172,26 @@ function viewAllDepartments(){
     }
         
     console.table(result);
+    console.log("");
     displayMainPrompts();
     });
 }
+
+// function viewAllDepartments() {
+// try{
+//   const [rows,fields] = db.promise().query(`SELECT id, department_name AS 'Name' FROM department`);
+//   console.table (rows);
+// }
+// catch(e){
+//     console.log(e);
+// }
+//     // db.promise().query(`SELECT id, department_name AS 'Name' FROM department`)
+//     //   .then( ([rows,fields]) => {
+//     //     console.table(rows);
+//     //   })
+//     //   .catch(console.log)
+//     //   .then( () => db.end());
+//   }
 
 // async function getExistingValues(table)
 // {
@@ -154,7 +208,7 @@ function viewAllDepartments(){
 //     }
     
 
-// }
+
 
 // Init function
 function init (){
