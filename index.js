@@ -174,10 +174,7 @@ async function updateEmpRole(){
 // ############################################################
 
 function viewAllEmployees(){
-    const sql = `SELECT employee.id AS 'Id', employee.first_name AS 'First Name', employee.last_name AS 'Last Name', 
-                emp_role.title AS 'Position', department.department_name AS 'Department', 
-                emp_role.salary AS 'Salary' FROM employee, emp_role, department WHERE department.id = emp_role.id 
-                AND emp_role.id = employee.role_id ORDER BY employee.id ASC`;
+    const sql = `SELECT employee.id AS id, employee.first_name, employee.last_name, emp_role.title, department.department_name AS department, emp_role.salary AS salary FROM employee INNER JOIN emp_role ON employee.role_id = emp_role.id INNER JOIN department ON emp_role.department_id = department.id ORDER BY employee.id`;
     
     db.query(sql, (err, result) => {
     if (err) {

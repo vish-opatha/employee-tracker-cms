@@ -3,7 +3,7 @@
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
      
   ## Description
-  This project is built to manipulate the data of an employee in an organization. It provides facilities to create new departments, roles and employees while providing oppotunities to view all the available details of each category. Apart from that, at this stage it provides facilities to update the position of the employees when required. This is a command line application built using Node.js and MySql.
+  This project is built to manipulate the data of an employee in an organization. It provides facilities to create new departments, roles and employees while providing oppotunities to view all the available details of each category. Apart from that, at this stage it provides facilities to update the position of the employees when required. This is a command line application built using Node.js and MySql. **Inquirer, MySql2 and Console.table** packages are used in the application.
   
   ## Table of Contents
   * [Important Links](#Important-Links)
@@ -22,13 +22,25 @@
   ## Mock-up
   Following images shows the landing page and notes manupulation page.
 
-  *Landing Page*
+  *Initial Prompts*
 
-  ![Landing Page](./public/assets/readme_images/landing_page.jpg)
+  ![First Part](./assets/image/capture_0.JPG)
 
-  *Notes Page*
+  *View employees, roles and departments*
 
-  ![Notes Page](./public/assets/readme_images/notes.jpg)
+  ![First Part](./assets/image/capture_1.JPG)
+
+  *Add department and roles*
+
+  ![Notes Page](./assets/image/capture_2.JPG)
+
+  *Add employee*
+
+  ![Notes Page](./assets/image/capture_3.JPG)
+
+  *Update employee role and exiting the application*
+
+  ![Notes Page](./assets/image/capture_4.JPG)
   
   ## Installation
   To install the necessary dependencies, run the following command:
@@ -53,7 +65,6 @@
   3. If the user wants to add a new department relevant prompts are given and new roles also can be created when required.Prompts are given to enter details such as role title, salary and department.
   4. When the user wants to enter details of new employee prompts are given to enter name, role and manager's details if there is one.
   5. Once after each and every function if the database is queried, updated or new details are displayed in all three tables namely department, role and employee.
-  6. **Inquirer, MySql2 and Console.table** packages are used in the application.
   ## Application Quality Work Done
   1. Inquirer prompts are designed in a way that it links to each function that user wants to perform. User can select exit to close the application. 
   ## Repository Quality Work Done
