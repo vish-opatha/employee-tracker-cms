@@ -157,15 +157,7 @@ async function updateEmpRole(){
         { type: "input", name: "newRole", message: `Which role do you want to assign?`},
     ]);
 
-    console.log(data);
-
-    
-    //const sql = `UPDATE employee SET role_id = ? WHERE id= ?`;
     const sql = `UPDATE employee SET role_id = ${data.newRole} WHERE id= ${data.employeeID}`;
-
-    console.log(sql);
-    const param = [data.newRole,data.EmployeeID];
-    console.log(param);
 
     db.query(sql, (err, result) => {
         if (err) {
@@ -176,16 +168,13 @@ async function updateEmpRole(){
         console.log("");
         displayMainPrompts();
     });
-
 }
 
-    
-
-
+// ############### Functions to select data ##################
+// ############################################################
 
 function viewAllEmployees(){
-    console.log("Show employees");
-     const sql = `SELECT employee.id AS 'Id', employee.first_name AS 'First Name', employee.last_name AS 'Last Name', 
+    const sql = `SELECT employee.id AS 'Id', employee.first_name AS 'First Name', employee.last_name AS 'Last Name', 
                 emp_role.title AS 'Position', department.department_name AS 'Department', 
                 emp_role.salary AS 'Salary' FROM employee, emp_role, department WHERE department.id = emp_role.id 
                 AND emp_role.id = employee.role_id ORDER BY employee.id ASC`;
@@ -198,12 +187,10 @@ function viewAllEmployees(){
     console.table(result);
     console.log();
     displayMainPrompts();
-    
     });  
 }
 
 function viewAllRoles(){
-    
     const sql = `SELECT emp_role.id, emp_role.title, emp_role.salary, department.department_name AS department
                  FROM emp_role LEFT JOIN department ON emp_role.department_id = department.id ORDER BY emp_role.id ASC`;
 
@@ -232,7 +219,6 @@ function viewAllDepartments(){
     displayMainPrompts();
     });
 }
-
 
 // Init function
 function init (){
