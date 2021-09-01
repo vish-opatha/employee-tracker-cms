@@ -40,14 +40,12 @@ function displaySecondaryPrompts(selection){
             break;
 
         case 'Add Employee':
-            // // addEmployeePrompts();
-            // const a = getExistingValues('department');
-            // console.log(a);
+            addNewEmployee();
         
             break;
 
         case 'Update Employee Role':
-            
+            updateEmpRole()
             break;
 
 
@@ -57,9 +55,7 @@ function displaySecondaryPrompts(selection){
             break;
 
         case 'Add Department':
-            // addNewDepartment();
-            
-        
+            addNewDepartment();
             break;
 
         case 'Exit':
@@ -114,72 +110,68 @@ async function addNewRole()
         }
 
         console.log("New role is created!");
+        console.log("");
         displayMainPrompts();
     });
     
 
 }
-// async function addNewRole(){
-    
-//     const sql = `INSERT INTO emp_role (title,salary,department_id) VALUES (?),(?),(?)`;
-//     const data = await inquirer.prompt([
-//                 {type: "input", name: "roleName", message: `What is the name of the role?`},
-//                 {type: "input", name: "salary", message: `What is the salary of the role?`},
-//                 { type: "list", name: "department", message: `Which department does the role belong to?`,choices : depName}
-// //             ]);
 
-//     // db.query(sql, (err, result) => {
-//     //     if (err) {
-//     //         console.error(err);
-//     //     }
-        
-//     //     console.table(result);
-//     //     displayMainPrompts();
-        
-//     //     });
-// console.log(data);
+async function addNewEmployee()
+{
+    const data = await inquirer.prompt([
+        { type: "input", name: "firstName", message: `What is the first name of the employee?`},
+        { type: "input", name: "lastName", message: `What is the last name of the employee?`},
+        { type: "input", name: "empRole", message: `What is the employee role?`},
+        { type: "input", name: "empMgr", message: `Who is the employee manager?`},
+    ]);
 
-// }
-    
+    const sql = `INSERT INTO employee (first_name,last_name,role_id,mgr_id) VALUES (?,?,?,?)`;
+    const param = [data.firstName,data.lastName,data.empRole,data.empMgr];
 
-    
+    db.query(sql, param, (err, result) => {
+        if (err) {
+            console.log(err);  
+        }
 
-//     console.table(result);
-//     depName = result.map(n => n.department_name);
-//     depId = result.map(n => n.id);
+        console.log("New employee is added!");
+        console.log("");
+        displayMainPrompts();
+    });
 
-//     const data = await inquirer.prompt([
-//         {type: "input", name: "roleName", message: `What is the name of the role?`},
-//         {type: "input", name: "salary", message: `What is the salary of the role?`},
-//         { type: "list", name: "department", message: `Which department does the role belong to?`,choices: depName}
-//     ]);
+}
 
-//     console.log(data);
+async function updateEmpRole(){
+    const data = await inquirer.prompt([
+        { type: "input", name: "employeeID", message: `Which employee's role do you want to update?`},
+        { type: "input", name: "newRole", message: `Which role do you want to assign?`},
+    ]);
+
+    console.log(data);
 
     
+    //const sql = `UPDATE employee SET role_id = ? WHERE id= ?`;
+    const sql = `UPDATE employee SET role_id = ${data.newRole} WHERE id= ${data.employeeID}`;
 
-//     // console.log(depName);
-//     // console.log(depId);
-//     });
+    console.log(sql);
+    const param = [data.newRole,data.EmployeeID];
+    console.log(param);
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.log(err);  
+        }
+
+        console.log("Employee role is updated!");
+        console.log("");
+        displayMainPrompts();
+    });
+
+}
 
     
-// }
-  
 
 
-
-
-
-
-// async function addEmployeePrompts(){
-//     const departments = viewAllDepartments();
-//     console.log(departments);
-//     const data = await inquirer.prompt([
-//     { type: "input", name: "firstName", message: `What is the employee's first name?`},
-//     { type: "input", name: "lastName", message: `What is the employee's last name?` },
-//     { type: "list", name: "empRole", message: `What is the employee's role?`, choices:['a','b']},
-//     { type: "input", name: "empMgr", message: `Who is employee's manager?`}])
-// }; 
 
 function showAllEmployees(){
     console.log("Show employees");
@@ -194,6 +186,7 @@ function showAllEmployees(){
     }
     
     console.table(result);
+    console.log();
     displayMainPrompts();
     
     });  
@@ -210,17 +203,9 @@ function viewAllRoles(){
     }
   
     console.table(result);
-    var a = result.map(b=> b.title);
-    const data = inquirer.prompt([
-        {
-            type: "list",
-            name: "taskList",
-            message: "What do you want to do?",
-            choices: a,
-        }]);
-    // console.log(a)
-    // console.log();
-    // displayMainPrompts();
+    
+    console.log("");
+    displayMainPrompts();
     }); 
 }
 
@@ -237,38 +222,6 @@ function viewAllDepartments(){
     displayMainPrompts();
     });
 }
-
-// function viewAllDepartments() {
-// try{
-//   const [rows,fields] = db.promise().query(`SELECT id, department_name AS 'Name' FROM department`);
-//   console.table (rows);
-// }
-// catch(e){
-//     console.log(e);
-// }
-//     // db.promise().query(`SELECT id, department_name AS 'Name' FROM department`)
-//     //   .then( ([rows,fields]) => {
-//     //     console.table(rows);
-//     //   })
-//     //   .catch(console.log)
-//     //   .then( () => db.end());
-//   }
-
-// async function getExistingValues(table)
-// {
-
-//     if (table === 'department')
-//     {
-//         const sql = `SELECT id, department_name AS 'Name' FROM department`;
-    
-//         db.query(sql, (err, result) => {
-//         if (err) {
-//             console.error(err);
-//         }
-//         return result;
-//     }
-    
-
 
 
 // Init function
