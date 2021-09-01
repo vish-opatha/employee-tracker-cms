@@ -18,7 +18,7 @@
   ## Important Links
   Following are the important links related to this application.
   * [Employee Tracker - Github Repo](https://github.com/vish-opatha/employee-tracker-cms)
-  * [Employee Tracker - Walkthrough Video](https://personal-note-taker-v.herokuapp.com/)
+  * [Employee Tracker - Walkthrough Video with Audio](https://drive.google.com/file/d/14ZzUPGWYC8hmmlZoJsuGle0x0dA5GlU0/view?usp=sharing) 
   ## Mock-up
   Following images shows the landing page and notes manupulation page.
 
